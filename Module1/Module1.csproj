@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="EvilDICOM" Version="2.0.6.5" />
+    <PackageReference Include="EvilDICOM.CV" Version="0.0.3" />
+    <PackageReference Include="Kitware.VTK" Version="9.2.2023.328" />
+    <PackageReference Include="Prism.Wpf" Version="8.1.97" />
+  </ItemGroup>
+</Project>
