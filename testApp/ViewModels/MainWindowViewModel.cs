@@ -57,12 +57,19 @@ namespace testApp.ViewModels
             }
             renderWindowControl.RenderWindow.Render();
             renderWindowControl.RenderWindow.GetInteractor().SetInteractorStyle(vtkInteractorStyleImage.New());
-            string directoryPath = @"C:\Users\k703528\Documents\Study_1 _ CompleteS";
+            //string directoryPath = @"C:\Users\k703528\Documents\Study_1 _ CompleteS";
+            //string directoryPath = @"C:\Users\k703528\Desktop\DICOMs\A990519-BREAST_KHANSARI^FORUGH\Study_1";
+            //string directoryPath = @"C:\Users\k703528\Desktop\DICOMs\AE990615-1SADEGH\Study_1";
+            //string directoryPath = @"C:\Users\k703528\Desktop\DICOMs\AE990505-1TABAR\Study_1";
+            //string directoryPath = @"C:\Users\k703528\Desktop\DICOMs\A990613-GBM\Study_1";
+            //string directoryPath = @"C:\Users\k703528\Desktop\DICOMs\A990610-BREAST2\Study_1";
+            //string directoryPath = @"C:\Users\k703528\Desktop\DICOMs\A990515_ABDOLAHI  AZAM\Study_1";
+            string directoryPath = @"C:\Users\k703528\Desktop\DICOMs\AE990507-1VAZIRI\Study_1";
             var imageData = ReadDicomDirectory(directoryPath);
             
-            var initgant = _drrGeneratorService.InitialGantry(imageData);
-            var Drr =_drrGeneratorService.updateImgeData(0,0);
-            _drrGeneratorService.show(Drr, renderWindowControl);
+            _drrGeneratorService.InitialGantry(imageData);
+            _drrGeneratorService.updateImgeData();
+            _drrGeneratorService.show(renderWindowControl);
             
         }
         #endregion

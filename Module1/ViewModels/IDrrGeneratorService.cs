@@ -10,13 +10,12 @@ namespace Module1.ViewModels
 {
     public interface IDrrGeneratorService
     {
-        vtkImageData InitialGantry(vtkImageData imageData);
-        vtkImageData updateImgeData(int GantryAngel, int TableAngle);
+        void InitialGantry(vtkImageData imageData);
+        void updateImgeData();
         void setGantryAngle(int degree);
         void setTableAngle(int degree);
-        void show(vtkImageData imageData, RenderWindowControl renderWindowControl);
-        void removeActor(vtkActor actor);
+        void show(RenderWindowControl renderWindowControl);
+        void removeActor();
         void updateRenderer();
-        //vtkImageData transformedImageData { get; set; }
     }
 }

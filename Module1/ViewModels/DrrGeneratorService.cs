@@ -10,6 +10,7 @@ namespace Module1.ViewModels
 {
     public class DrrGeneratorService : IDrrGeneratorService
     {
+        #region Properties
         private vtkTransform transformAxis;
         private vtkImageReslice reslice;
         public vtkImageData transformedImageData { get; set; }
@@ -25,15 +26,18 @@ namespace Module1.ViewModels
             }
         }
         #endregion
-
-
+        #endregion
+        #region Methodes
+        #region Constructor
         public DrrGeneratorService()
         {
             actor = new();
             reslice = new vtkImageReslice();
-            
+            transformAxis = new vtkTransform();
         }
-        public vtkImageData updateImgeData(int GantryAngel, int TableAngel)
+        #endregion
+        #region UpdateImageDate
+        public void updateImgeData()
         {
             int slabNumberOfSlices = transformedImageData.GetDimensions()[0] * (int)transformedImageData.GetSpacing()[2];
 
@@ -44,44 +48,57 @@ namespace Module1.ViewModels
             reslice.InterpolateOn();
             reslice.SetSlabModeToMean();
             reslice.SetSlabNumberOfSlices(slabNumberOfSlices);
-            transformAxis = new vtkTransform();
-            setTableAngle(TableAngel);
-            setGantryAngle(GantryAngel);
             reslice.SetResliceAxes(transformAxis.GetMatrix());
             reslice.Update();
-            return reslice.GetOutput();
+
+            actor.SetInputData(setLookupTable(reslice.GetOutput()));
+            actor.Update();
         }
+        #endregion
+        #region SetGantryAngle
         public void setGantryAngle(int degree)
         {
+            
             transformAxis.RotateY(degree);
+            reslice.SetResliceAxes(transformAxis.GetMatrix());
+            reslice.Update();
         }
-
+        #endregion
+        #region SetTableAngle
         public void setTableAngle(int degree)
         {
+            transformAxis = new vtkTransform();
             transformAxis.RotateZ(-degree);
+            reslice.SetResliceAxes(transformAxis.GetMatrix());
+            reslice.Update();
         }
-        public void show(vtkImageData imageData,RenderWindowControl renderWindowC)
+        #endregion
+        #region Show
+        public void show(RenderWindowControl renderWindowC)
         {
-            //actor.SetInputData(imageData);
-            actor.SetInputData(setLookupTable(imageData));
-            actor.Update();
             renderWindowControl = renderWindowC;
             renderWindowControl.RenderWindow.GetRenderers().GetFirstRenderer().AddActor(actor);
             renderWindowControl.RenderWindow.GetRenderers().GetFirstRenderer().Render();
             renderWindowControl.RenderWindow.GetRenderers().GetFirstRenderer().ResetCamera();
             renderWindowControl.RenderWindow.Render();
         }
-        public void removeActor(vtkActor actor)
+        #endregion
+        #region RemoveActor
+        public void removeActor()
         {
             renderWindowControl.RenderWindow.GetRenderers().GetFirstRenderer().RemoveActor(actor);
         }
+        #endregion
+        #region UpdateRenderer
         public void updateRenderer()
         {
+            actor.SetInputData(setLookupTable(reslice.GetOutput()));
+            actor.Update();
             renderWindowControl.RenderWindow.Render();
         }
-
+        #endregion
         #region Initial Gantry
-        public vtkImageData InitialGantry(vtkImageData imageData)
+        public void InitialGantry(vtkImageData imageData)
         {
             //Rotate ImageData
             vtkTransform transform = new();
@@ -94,10 +111,10 @@ namespace Module1.ViewModels
             resliceInit.Update();
 
             transformedImageData = resliceInit.GetOutput();
-            return transformedImageData;
+
         }
         #endregion
-
+        #region SetLookupTable
         private vtkImageData setLookupTable(vtkImageData imageData) 
         {
             double dWindow = 400;
@@ -122,5 +139,7 @@ namespace Module1.ViewModels
 
             return mapColors.GetOutput();
         }
+        #endregion
+        #endregion
     }
 }

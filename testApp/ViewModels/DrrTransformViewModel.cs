@@ -14,13 +14,6 @@ namespace testApp.ViewModels
     public class DrrTransformViewModel : BindableBase
     {
         #region Properties
-        #region Property Changed
-        public event PropertyChangedEventHandler? PropertyChanged;
-        protected void onPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        #endregion
         #region Gant Angel prop
         private int _txtGantAngel = 0;
         public int txtGantAngel
@@ -29,7 +22,7 @@ namespace testApp.ViewModels
             set
             {
                 _txtGantAngel = value;
-                onPropertyChanged(nameof(txtGantAngel));
+                SetProperty(ref _txtGantAngel, value);
             }
         }
         #endregion
@@ -41,7 +34,7 @@ namespace testApp.ViewModels
             set
             {
                 _txtTableAngle = value;
-                onPropertyChanged(nameof(txtTableAngle));
+                SetProperty(ref _txtTableAngle,value);
             }
         }
         #endregion
@@ -61,7 +54,8 @@ namespace testApp.ViewModels
         #region Calculate Drr Button
         public void Button_Click(object sender, RoutedEventArgs e)
         {
-            var Drr = _drrGeneratorService.updateImgeData(txtGantAngel, txtTableAngle);
+            _drrGeneratorService.setTableAngle(txtTableAngle);
+            _drrGeneratorService.setGantryAngle(txtGantAngel);
             _drrGeneratorService.updateRenderer();
         }
         #endregion
