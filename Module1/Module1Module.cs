@@ -1,5 +1,7 @@
-﻿using Module1.ViewModels;
+﻿using Module1.Services;
+using Module1.ViewModels;
 using Module1.Views;
+using OrganDRR_sample.Services;
 using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;
@@ -17,6 +19,7 @@ namespace Module1
         {
             containerRegistry.Register<IRemoveTableService, RemoveTableService>();
             containerRegistry.Register<IDrrGeneratorService, DrrGeneratorService>();
+            containerRegistry.Register<IContourDRRService, ContourDRRService>();
         }
     }
 }

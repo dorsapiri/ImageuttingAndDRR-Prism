@@ -4,6 +4,8 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Emgu.CV" Version="4.8.1.5350" />
+    <PackageReference Include="Emgu.CV.runtime.windows" Version="4.8.1.5350" />
     <PackageReference Include="EvilDICOM" Version="2.0.6.5" />
     <PackageReference Include="EvilDICOM.CV" Version="0.0.3" />
     <PackageReference Include="Kitware.VTK" Version="9.2.2023.328" />

@@ -1,4 +1,6 @@
-﻿using Module1.ViewModels;
+﻿using Module1.Services;
+using Module1.ViewModels;
+using OrganDRR_sample.Services;
 using Prism.Ioc;
 using Prism.Modularity;
 using System.Windows;
@@ -21,6 +23,7 @@ namespace testApp
         {
             containerRegistry.Register<MainWindowViewModel>();
             containerRegistry.RegisterSingleton<IDrrGeneratorService, DrrGeneratorService>();
+            containerRegistry.RegisterSingleton<IContourDRRService, ContourDRRService>();
         }
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {

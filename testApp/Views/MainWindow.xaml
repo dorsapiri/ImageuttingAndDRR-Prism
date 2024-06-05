@@ -27,6 +27,8 @@
             <vtk:RenderWindowControl />
         </WindowsFormsHost>
 
-        <ContentControl Grid.Row="1" prism:RegionManager.RegionName="ContentRegionDrrRotation" />
+        <ContentControl Grid.Row="0" Grid.RowSpan="2"
+                        prism:RegionManager.RegionName="ContentRegionOrganDrr" />
+        <ContentControl Grid.Row="2" prism:RegionManager.RegionName="ContentRegionDrrRotation" />
     </Grid>
 </Window>
