@@ -17,9 +17,10 @@ namespace Module1
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.Register<IRemoveTableService, RemoveTableService>();
-            containerRegistry.Register<IDrrGeneratorService, DrrGeneratorService>();
-            containerRegistry.Register<IContourDRRService, ContourDRRService>();
+            containerRegistry.RegisterSingleton<IRemoveTableService, RemoveTableService>()
+                             .RegisterSingleton<IDrrGeneratorService, DrrGeneratorService>()
+                             .RegisterSingleton<IContourDRRService, ContourDRRService>()
+                             .RegisterSingleton<IIsoCenterService, IsoCenterService>();
         }
     }
 }

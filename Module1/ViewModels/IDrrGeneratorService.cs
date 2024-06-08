@@ -17,5 +17,7 @@ namespace Module1.ViewModels
         void show(RenderWindowControl renderWindowControl);
         void removeActor();
         void updateRenderer();
+        public int getSlabNumber();
+        public vtkMatrix4x4 getMatrixTransform();
     }
 }

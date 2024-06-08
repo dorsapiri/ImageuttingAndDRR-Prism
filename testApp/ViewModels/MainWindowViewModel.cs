@@ -34,6 +34,7 @@ namespace testApp.ViewModels
             get { return _contourDRRService; }
             set { SetProperty(ref _contourDRRService, value); }
         }
+        private IIsoCenterService _isoCenterService;
 
         #region RenderWindowControl Property
         private RenderWindowControl _renderWindowControl;
@@ -46,12 +47,13 @@ namespace testApp.ViewModels
             }
         }
         #endregion
-        public MainWindowViewModel(IRegionManager regionManager,IDrrGeneratorService drrGeneratorService,IContourDRRService contourDRRService)
+        public MainWindowViewModel(IRegionManager regionManager,IDrrGeneratorService drrGeneratorService,IContourDRRService contourDRRService, IIsoCenterService isoCenterService)
         {
             _regionManager = regionManager;
             actor = new();
             _drrGeneratorService = drrGeneratorService;
             _contourDRRService = contourDRRService;
+            _isoCenterService = isoCenterService;
 
             regionManager.RegisterViewWithRegion("ContentRegionDrrRotation", typeof(DrrTransformView));
             regionManager.RegisterViewWithRegion("ContentRegionOrganDrr", typeof(OrgansCheckListView));
@@ -82,6 +84,10 @@ namespace testApp.ViewModels
             _drrGeneratorService.updateImgeData();
             _drrGeneratorService.show(renderWindowControl);
             _contourDRRService.initialProperties(reader,RTStruct,renderWindowControl);
+            double[] iso = new double[3] { 0, 0, 0 };
+            _isoCenterService.Create();
+            _isoCenterService.Update(iso,_drrGeneratorService.getSlabNumber(),_drrGeneratorService.getMatrixTransform());
+            _isoCenterService.show(renderWindowControl);
         }
         #endregion
         #region Read Dicoms

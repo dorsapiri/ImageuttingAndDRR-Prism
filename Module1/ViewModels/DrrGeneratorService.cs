@@ -15,6 +15,7 @@ namespace Module1.ViewModels
         private vtkImageReslice reslice;
         public vtkImageData transformedImageData { get; set; }
         vtkImageActor actor;
+        private int slabNumberOfSlices;
         #region RenderWindowControl Property
         private RenderWindowControl _renderWindowControl;
         public RenderWindowControl renderWindowControl
@@ -39,7 +40,7 @@ namespace Module1.ViewModels
         #region UpdateImageDate
         public void updateImgeData()
         {
-            int slabNumberOfSlices = transformedImageData.GetDimensions()[0] * (int)transformedImageData.GetSpacing()[2];
+            slabNumberOfSlices = transformedImageData.GetDimensions()[0] * (int)transformedImageData.GetSpacing()[2];
 
             reslice.SetInputData(transformedImageData);
             reslice.SetOutputDimensionality(2);
@@ -140,6 +141,8 @@ namespace Module1.ViewModels
             return mapColors.GetOutput();
         }
         #endregion
+        public int getSlabNumber() { return slabNumberOfSlices; }
+        public vtkMatrix4x4 getMatrixTransform() { return transformAxis.GetMatrix(); }
         #endregion
     }
 }
